@@ -1,0 +1,51 @@
+plugins {
+  //Core plugins	
+  id 'java'
+  //Custom plugins
+  id "com.katalon.gradle-plugin" version "0.0.7"
+  //Linting plugins
+  id 'com.diffplug.spotless' version "5.12.1"
+  //id 'com.github.jakemarsden.git-hooks' version "0.0.2"
+}
+
+repositories {
+  mavenCentral()
+}
+
+//Spotless linting configuration
+spotless {
+    groovy {
+        target '<add-your-path>/**/*.groovy' //Target groovy scripts
+        importOrder() //sorts import alphabeticaly
+        trimTrailingWhitespace() //trims trailing whitespaces
+        indentWithSpaces(4) //indentation of 4 spaces
+   		endWithNewline() //end file with new line
+        greclipse()
+        custom 'remove semicolons', { it.replaceAll(/;\s*$/, '') } //remove semicolons
+		custom 'remove extra blank lines', { it.replaceAll(/(\s*\r?\n){2,}/, '\n') } // remove lines that are completely blank, including those with whitespace
+        custom 'replace tabs with spaces', { it.replaceAll(/\t/, '    ') }
+        custom 'ensure space after commas', { it.replaceAll(/,(\S)/, ', $1') }
+        custom 'ensure colon spacing', { it.replaceAll(/:(\S)/, ': $1').replaceAll(/(\S):/, '$1 :') }
+    }
+}
+
+// git pre commit hooks configuration
+//gitHooks {
+//    hooks = ['pre-commit': 'preCommit']
+//}
+
+//task preCommit {
+//    dependsOn 'spotlessCheck'
+//}
+
+dependencies {
+  // sample dependencies
+  // rest-assured
+  // compile 'io.rest-assured:rest-assured:3.2.0'
+  // JsonPath
+  // compile 'io.rest-assured:json-path:3.2.0'
+  // XmlPath
+  // compile 'io.rest-assured:json-path:3.2.0'
+  // JSON Schema Validation
+  // compile 'io.rest-assured:json-schema-validator:3.2.0'
+}
