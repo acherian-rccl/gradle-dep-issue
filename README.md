@@ -1,2 +1,2 @@
 # gradle-dep-issue
-- Run - ```./gradlew build````
+- Run - ```./gradlew build```
